@@ -74,6 +74,10 @@ async function run() {
          res.send (result)
      })
      
+     //get my orders 
+     app.get('/orders/:email', async (req, res) => {
+         console.log(req.params.email)
+     })
     } finally {
      // await client.close();
     }
