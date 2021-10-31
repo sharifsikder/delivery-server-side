@@ -21,9 +21,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 async function run() {
     try {
-      await client.connect();
-      console.log('databse thik ase');
-      
+      await client.connect();   
       const database = client.db('food_delivery');
       const itemsCollection = database.collection('items');
       const orderCollection = database.collection('orders')
@@ -76,7 +74,10 @@ async function run() {
      
      //get my orders 
      app.get('/orders/:email', async (req, res) => {
-         console.log(req.params.email)
+        const result = await orderCollection
+        .find({email: req.params.email})
+        .toArray();
+        res.send(result);
      })
     } finally {
      // await client.close();
